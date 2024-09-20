@@ -7,7 +7,7 @@ import axios from "axios";
 const App = () => {
   const [data , setData] = useState([])
   const [filteredData, setFilteredData] = useState([]);
-
+  const [notFound , setNotFound] = useState("")
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,11 +30,11 @@ const App = () => {
 
   const handleSearch = (values) => {
     const { searchQuery } = values;
-    console.log(searchQuery)
+  
     const results = data.filter((item) =>
       item.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
-    
+    setNotFound(searchQuery)
     setFilteredData(results); 
   };
 
@@ -76,7 +76,7 @@ const App = () => {
             ))}
           </ul>
         ) : (
-          <p>No results found.</p>
+          <p>No results found. {notFound}</p>
         )}
       </div>
     </div>
